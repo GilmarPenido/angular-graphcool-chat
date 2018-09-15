@@ -25,7 +25,7 @@ export class ApolloConfigModule {
     const uri = 'https://api.graph.cool/simple/v1/cjj515ffd3fd901009spm6mwa';
     const http = httpLink.create({ uri })
 
-    const linkError = onError(({ graphQLErrors, networkError }) => {
+    const linkError = onError(({response,  graphQLErrors, networkError }) => {
       if (graphQLErrors)
         graphQLErrors.map(({ message, locations, path }) =>
           console.log(
@@ -34,6 +34,7 @@ export class ApolloConfigModule {
         );
 
       if (networkError) console.log(`[Network error]: ${networkError}`);
+
     });
 
     apollo.create({
